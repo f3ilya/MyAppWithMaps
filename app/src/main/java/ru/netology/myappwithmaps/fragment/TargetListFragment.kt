@@ -12,7 +12,7 @@ import dev.androidbroadcast.vbpd.viewBinding
 import kotlinx.coroutines.launch
 import ru.netology.myappwithmaps.R
 import ru.netology.myappwithmaps.adapter.PointsAdapter
-import ru.netology.myappwithmaps.adapter.onInteractionListener
+import ru.netology.myappwithmaps.adapter.OnInteractionListener
 import ru.netology.myappwithmaps.databinding.FragmentTargetListBinding
 import ru.netology.myappwithmaps.db.entity.PointEntity
 import ru.netology.myappwithmaps.extensions.showEditDialog
@@ -25,7 +25,7 @@ class TargetListFragment : Fragment(R.layout.fragment_target_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PointsAdapter(object : onInteractionListener {
+        val adapter = PointsAdapter(object : OnInteractionListener {
             override fun onPoint(point: PointEntity) {
                 viewModel.selectPoint(point)
                 findNavController().popBackStack()

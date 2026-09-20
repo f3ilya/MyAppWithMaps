@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.myappwithmaps.databinding.CardPointBinding
 import ru.netology.myappwithmaps.db.entity.PointEntity
 
-interface onInteractionListener {
+interface OnInteractionListener {
     fun onPoint(point: PointEntity) {}
     fun onEdit(point: PointEntity) {}
 }
 class PointsAdapter(
-    private val onInteractionListener: onInteractionListener
+    private val onInteractionListener: OnInteractionListener
 ) : ListAdapter<PointEntity, PointsAdapter.PointViewHolder>(PointDiffCallback()) {
 
     override fun onCreateViewHolder(
@@ -38,7 +38,7 @@ class PointsAdapter(
 
     class PointViewHolder(
         private val binding: CardPointBinding,
-        private val onInteractionListener: onInteractionListener
+        private val onInteractionListener: OnInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(point: PointEntity) {
