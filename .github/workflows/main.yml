@@ -21,8 +21,8 @@ jobs:
 
       - name: Decode google-services.json
         env:
-          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
-        run: echo $FIREBASE_SECRET > ./app/google-services.json
+          YANDEXMAP_SECRET: ${{ secrets.YANDEXMAP_SECRET }}
+        run: echo $YANDEXMAP_SECRET > ./maps.properties
 
       - name: Build
         run: |
