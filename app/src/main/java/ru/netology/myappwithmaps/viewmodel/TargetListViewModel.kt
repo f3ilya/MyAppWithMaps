@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import ru.netology.myappwithmaps.db.AppDb
 import ru.netology.myappwithmaps.db.entity.PointEntity
 
-class MapsViewModel(application: Application) : AndroidViewModel(application) {
+class TargetListViewModel(application: Application) : AndroidViewModel(application) {
     private val dao = AppDb.getInstance(application).pointDao()
 
     val allPoints: StateFlow<List<PointEntity>> = dao.getAll()

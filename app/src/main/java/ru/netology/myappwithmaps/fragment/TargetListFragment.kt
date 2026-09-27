@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -16,10 +17,10 @@ import ru.netology.myappwithmaps.adapter.OnInteractionListener
 import ru.netology.myappwithmaps.databinding.FragmentTargetListBinding
 import ru.netology.myappwithmaps.db.entity.PointEntity
 import ru.netology.myappwithmaps.extensions.showEditDialog
-import ru.netology.myappwithmaps.viewmodel.MapsViewModel
+import ru.netology.myappwithmaps.viewmodel.TargetListViewModel
 
 class TargetListFragment : Fragment(R.layout.fragment_target_list) {
-    private val viewModel: MapsViewModel by activityViewModels()
+    private val viewModel: TargetListViewModel by activityViewModels()
     private val binding by viewBinding(FragmentTargetListBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +28,11 @@ class TargetListFragment : Fragment(R.layout.fragment_target_list) {
 
         val adapter = PointsAdapter(object : OnInteractionListener {
             override fun onPoint(point: PointEntity) {
-                viewModel.selectPoint(point)
+                val bundle = Bundle().apply {
+                    putDouble("lat", point.latitude)
+                    putDouble("lng", point.longitude)
+                }
+                setFragmentResult("request_key", bundle)
                 findNavController().popBackStack()
             }
 

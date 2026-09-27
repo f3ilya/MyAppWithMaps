@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -111,15 +112,11 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigateToPoint.collect { chosenPoint ->
-                    if (chosenPoint != null) {
-                        val target = Point(chosenPoint.latitude, chosenPoint.longitude)
-                        moveToMarker(yandexMap, target)
-                        viewModel.clearNavigation()
-                    }
-                }
+        setFragmentResultListener("request_key") {_, bundle ->
+            val latitude = bundle.getDouble("lat", Double.NaN)
+            val longitude = bundle.getDouble("lng", Double.NaN)
+            if (!latitude.isNaN() && !longitude.isNaN()) {
+                moveToMarker(yandexMap, Point(latitude, longitude))
             }
         }
 
